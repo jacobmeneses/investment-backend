@@ -1,10 +1,21 @@
 import express, { Request, Response, NextFunction } from 'express';
 import prisma from './prisma-client';
+import { routers, AppRouter } from './controllers';
+import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const corsOptions = {
+  origin: '*',
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
+
+routers.forEach((route: AppRouter) => {
+  app.use('/api/v1' + route.path, route.router);
+});
 
 // Simple example route
 app.get('/users', async (req: Request, res: Response) => {

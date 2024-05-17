@@ -1,5 +1,7 @@
 # Example NodeJs API
-Example API using express.js
+Example NodeJS API using:
+- express.js
+- prisma ORM
 
 Using node version >= 20
 

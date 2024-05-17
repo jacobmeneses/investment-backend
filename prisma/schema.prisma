@@ -20,4 +20,38 @@ model User {
 	balance Float
 	createdAt DateTime @default(now())
 	updatedAt DateTime @updatedAt
+	investments Investment[]
 }
+
+model Company {
+	id    Int     @id @default(autoincrement())
+	name String
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+	oportunities Oportunity[]
+}
+
+
+model Oportunity {
+	id    Int     @id @default(autoincrement())
+	total Float
+	rate Float
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+	company Company @relation(fields: [companyId], references: [id])
+	companyId Int
+	daysLimit Int
+	investments Investment[]
+}
+
+model Investment {
+	id    Int     @id @default(autoincrement())
+	amount Float
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt
+	userId Int
+	user User @relation(fields: [userId], references: [id])
+	oportunityId Int
+	oportunity Oportunity @relation(fields: [oportunityId], references: [id])
+}
+
